@@ -10,11 +10,11 @@ class UserAchievementController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-
+        return $request->user()->achievements()->get();
     }
 
     /**
