@@ -14,7 +14,7 @@ class AchievementController extends Controller
      */
     public function index()
     {
-        //
+        return Achievement::all();
     }
 
     /**
@@ -25,7 +25,7 @@ class AchievementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Achievement::create($request->all());
     }
 
     /**
@@ -36,7 +36,7 @@ class AchievementController extends Controller
      */
     public function show(Achievement $achievement)
     {
-        //
+        return $achievement;
     }
 
     /**
@@ -48,7 +48,9 @@ class AchievementController extends Controller
      */
     public function update(Request $request, Achievement $achievement)
     {
-        //
+        $achievement->update($request->all());
+
+        return $achievement;
     }
 
     /**
@@ -59,6 +61,6 @@ class AchievementController extends Controller
      */
     public function destroy(Achievement $achievement)
     {
-        //
+        $achievement->delete();
     }
 }
