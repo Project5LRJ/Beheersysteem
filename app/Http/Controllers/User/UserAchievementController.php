@@ -14,51 +14,18 @@ class UserAchievementController extends Controller
      */
     public function index(Request $request)
     {
+        //Als URL limit, offset en sort parameters bevat
+        if($request->has('limit') && $request->has('offset') && $request->has('sort')) {
+            return $request->user()->achievements()->orderBy($request->sort)->skip($request->offset)->take($request->limit)->get();
+        }
+        //Als URL limit en offset parameters bevat
+        if($request->has('limit') && $request->has('offset')) {
+            return $request->user()->achievements()->skip($request->offset)->take($request->limit)->get();
+        }
+        //Als URL sort parameter bevat
+        if($request->has('sort')) {
+            return $request->user()->achievements()->orderBy($request->sort)->get();
+        }
         return $request->user()->achievements()->get();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
