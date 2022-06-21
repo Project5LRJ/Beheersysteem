@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('exercises', ExerciseController::class)
         ->only('store', 'update', 'destroy');
 
-    Route::apiResource('Achievement', ExerciseController::class);
+    Route::apiResource('achievements', AchievementController::class);
 });
 
 
