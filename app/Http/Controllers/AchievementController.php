@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Achievement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class AchievementController extends Controller
 {
@@ -15,18 +18,24 @@ class AchievementController extends Controller
      */
     public function store(Request $request)
     {
-        return Achievement::create($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Achievement  $achievement
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Achievement $achievement)
-    {
-        return $achievement;
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'exercise_id' => 'required|integer|exists:exercises,id',
+        ]);
+        if ($validator->fails()) {
+            Log::error('Validation error achievement create:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'data' => $request->all()]);
+            return response()->json(["message" => 'Incorrect data'], 400);
+        } else {
+            $achievement = Achievement::create([
+                "title" => $request->title,
+                "description" => $request->description,
+                "user_id" => Auth::id(),
+                "exercise_id" => $request->exercise_id
+            ]);
+            Log::info('Achievement created:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id]);
+            return $achievement;
+        }
     }
 
     /**
@@ -38,9 +47,24 @@ class AchievementController extends Controller
      */
     public function update(Request $request, Achievement $achievement)
     {
-        $achievement->update($request->all());
-
-        return $achievement;
+        if($achievement->user->id == $request->user()->id) {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'description' => 'required',
+                'exercise_id' => 'required|integer|exists:exercises,id',
+            ]);
+            if ($validator->fails()) {
+                Log::error('Validation error achievement edit:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id, 'data' => $request->all()]);
+                return response()->json(["message" => 'Incorrect data'], 400);
+            } else {
+                $achievement->update($request->all());
+                Log::info('Achievement editted:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id]);
+                return $achievement;
+            }
+        } else {
+            Log::error('Invalid user error achievement edit:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id]);
+            return response()->json(['message' => 'You do not have access to this resource'], 403);
+        }
     }
 
     /**
@@ -49,8 +73,14 @@ class AchievementController extends Controller
      * @param  \App\Models\Achievement  $achievement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Achievement $achievement)
+    public function destroy(Request $request, Achievement $achievement)
     {
-        $achievement->delete();
+        if($achievement->user->id == $request->user()->id) {
+            $achievement->delete();
+            Log::info('Achievement deleted:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id]);
+        } else {
+            Log::error('Invalid user error achievement delete:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id]);
+            return response()->json(['message' => 'You do not have access to this resource'], 403);
+        }
     }
 }
