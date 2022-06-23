@@ -30,19 +30,13 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/exercise">Exercises</a>
+                    <a class="nav-link" href="/exercises">Exercises</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user">Users</a>
+                    <a class="nav-link" href="/users">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/achievement">Achievements</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/qr">Qr-Code</a>
-                </li>
-                <li class="nav-item">
-
+                    <a class="nav-link" href="/achievements">Achievements</a>
                 </li>
             </ul>
         </div>
@@ -63,7 +57,7 @@
             @if (Route::has('login'))
                 <div class="d-flex ">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="flex-fill">Dashboard</a>
+                        
                         <form class="flex-fill" method="POST" action="{{ route('logout') }}">
                             @csrf
 
