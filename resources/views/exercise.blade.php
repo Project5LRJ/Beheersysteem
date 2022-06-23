@@ -4,13 +4,24 @@
 @endsection
 @section('content')
 <ul class="text-center mt-5">
-<button>Toevoegen</button>
+<button href="{{ route('exercises.add') }}">Toevoegen</button>
 </ul>
 @foreach($exercises as $exercise)
-<ul>
+<ul class="w-25">
         <li>{{$exercise->title}}</li>
-        <button>wijzigen</button>
-        <button>verwijderen</button>
+    <div class="d-flex">
+        <form class="flex-fill" action="exercises/{{ $exercise->id }}/info">
+            <button>More info</button>
+        </form>
+        <form class="flex-fill" action="exercises/{{ $exercise->id }}/edit">
+            <button>Edit</button>
+        </form>
+        <form class="flex-fill" action="exercises/{{ $exercise->id }}/delete">
+            <button>Delete</button>
+        </form>
+    </div>
+
+
         </ul>
     @endforeach
 @endsection

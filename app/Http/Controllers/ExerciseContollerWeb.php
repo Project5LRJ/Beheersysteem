@@ -48,7 +48,7 @@ class ExerciseContollerWeb extends Controller
      */
     public function show($id)
     {
-        //
+        return view('exerciseinfo', ['exercise' => Exercise::find($id)]);
     }
 
     /**
@@ -59,7 +59,7 @@ class ExerciseContollerWeb extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('exerciseedit', ['exercise' => Exercise::find($id)]);
     }
 
     /**
@@ -71,7 +71,14 @@ class ExerciseContollerWeb extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description_NL' => 'required',
+            'description_ENG' => 'required',
+        ]);
+
+        Exercise::find($id)->update($request->except(['id', '_token']));
+        return redirect()->route('exercises.index');
     }
 
     /**

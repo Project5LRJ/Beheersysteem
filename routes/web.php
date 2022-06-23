@@ -30,6 +30,13 @@ Route::get('/users', function () {
 
 Route::get('/exercises', [ExerciseContollerWeb::class, 'index'])->Name('exercises.index');
 
+Route::get('/exercises/{id}/info', [ExerciseContollerWeb::class, 'show'])->Name('exercises.info');
+
+Route::get('/exercises/{id}/edit', [ExerciseContollerWeb::class, 'edit'])->Name('exercises.edit');
+Route::put('/exercises/{id}/update', [ExerciseContollerWeb::class, 'update'])->name('exercises.update');
+
+Route::get('/exercises/add', [ExerciseContollerWeb::class, 'create'])->Name('exercises.add');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
