@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExerciseContollerWeb;
+use App\Http\Controllers\UserControllerWeb;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::resource('users', UserControllerWeb::class)
+                                        ->except('show');
 
 require __DIR__.'/auth.php';
 
