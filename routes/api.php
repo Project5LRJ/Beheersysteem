@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user/achievements', [UserAchievementController::class, 'index']);
     Route::post('/logout', [AuthenticationController::class, 'logout']);

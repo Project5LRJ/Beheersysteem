@@ -89,6 +89,8 @@ class ExerciseContollerWeb extends Controller
      */
     public function destroy($id)
     {
-        //
+        $exercise = Exercise::findOrFail($id);
+        $exercise->delete();
+        return redirect()->route('exercises.index');
     }
 }

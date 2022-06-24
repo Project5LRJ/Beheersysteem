@@ -19,7 +19,7 @@
             {!! QrCode::size(300)->generate( $exercise->description_NL ) !!}
         </div>
     </div>
-    <form action="exercises/{{ $exercise->id }}/edit">
+    <form action="{{ $exercise->id }}/edit">
         <button>Edit</button>
     </form>
 
