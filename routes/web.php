@@ -24,10 +24,6 @@ Route::get('/achievements', function () {
     return view('achievement');
 });
 
-Route::get('/users', function () {
-    return view('user');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
