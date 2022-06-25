@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\ExerciseController;
-use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\Api\AchievementController;
+use App\Http\Controllers\Api\AuthenticationController;
+use App\Http\Controllers\Api\ExerciseController;
 use App\Http\Controllers\User\UserAchievementController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
-class UserControllerWeb extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,7 +50,8 @@ class UserControllerWeb extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('useredit', ['user' => $user]);
     }
 
     /**
@@ -59,7 +63,19 @@ class UserControllerWeb extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return redirect()->route('users.index');
     }
 
     /**

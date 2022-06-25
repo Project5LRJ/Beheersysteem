@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\Exercise;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class ExerciseContollerWeb extends Controller
+class ExerciseController extends Controller
 {
     /**
      * Display a listing of the resource.
