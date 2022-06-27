@@ -19,18 +19,17 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/achievements', function () {
-    return view('achievement');
+    Route::resource('exercises', ExerciseController::class);
+    Route::resource('users', UserController::class)->except('show');
+    Route::get('/achievements', function () {
+        return view('achievement');
+    });
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::resource('exercises', ExerciseController::class);
-Route::resource('users', UserController::class)
-                                        ->except('show');
 
 require __DIR__.'/auth.php';
 
