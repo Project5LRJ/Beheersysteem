@@ -32,7 +32,7 @@ class AuthenticationController extends Controller
             'password' => 'required|string|min:6'
         ]);
         if (!Auth::attempt($attr)) {
-            Log::error('Mislukte inlogpoging', ['ip' => $request->ip()]);
+            Log::error('Failed login', ['ip' => $request->ip()]);
             return response()->json(['message' => 'Credentials do not match'], 401);
         }
         $response = [

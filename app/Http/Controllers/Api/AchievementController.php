@@ -59,7 +59,7 @@ class AchievementController extends Controller
                 return response()->json(["message" => 'Incorrect data'], 400);
             } else {
                 $achievement->update($request->all());
-                Log::info('Achievement editted:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id]);
+                Log::info('Achievement edited:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'achievement_id' => $achievement->id]);
                 return $achievement;
             }
         } else {
