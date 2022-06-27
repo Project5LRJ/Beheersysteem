@@ -20,10 +20,6 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     Route::resource('exercises', ExerciseController::class);
     Route::resource('users', UserController::class)->except('show');
     Route::get('/achievements', function () {
