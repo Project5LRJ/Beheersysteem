@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -75,6 +76,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         }
         $user->save();
+        Log::info('User updated:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'edited_user_id' => $user->id]);
         return redirect()->route('users.index');
     }
 

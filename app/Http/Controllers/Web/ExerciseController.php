@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Exercise;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ExerciseController extends Controller
 {
@@ -87,9 +88,10 @@ class ExerciseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $exercise = Exercise::findOrFail($id);
+        Log::info('Exercise deleted:', ['ip' => $request->ip(), 'user_id' => $request->user()->id, 'exercise_id' => $exercise->id]);
         $exercise->delete();
         return redirect()->route('exercises.index');
     }
