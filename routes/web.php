@@ -19,13 +19,13 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/settings', function () {
+    return view('settings');
+});
+
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('exercises', ExerciseController::class);
     Route::resource('users', UserController::class)->except('show');
-
-    Route::get('/achievements', function () {
-        return view('achievement');
-    });
 });
 
 require __DIR__.'/auth.php';

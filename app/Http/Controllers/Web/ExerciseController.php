@@ -73,7 +73,8 @@ class ExerciseController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
+            'title_NL' => 'required',
+            'title_ENG' => 'required',
             'description_NL' => 'required',
             'description_ENG' => 'required',
         ]);

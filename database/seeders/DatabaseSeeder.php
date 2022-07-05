@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             AchievementSeeder::class,
-            ExerciseSeeder::class
+            ExerciseSeeder::class,
+            UserSeeder::class
         ]);
     }
 }

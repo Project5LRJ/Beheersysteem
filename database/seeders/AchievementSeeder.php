@@ -15,9 +15,6 @@ class AchievementSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('achievements')->insert([
-            'title' => 'achievement1',
-            'description' => 'description1',
-        ]);
+
     }
 }

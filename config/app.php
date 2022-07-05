@@ -1,6 +1,9 @@
 <?php
 
+
 use Illuminate\Support\Facades\Facade;
+
+$lang = $_COOKIE["lang"] ?? 'nl';
 
 return [
 
@@ -81,8 +84,7 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-
-    'locale' => 'en',
+    'locale' => $lang,
 
     /*
     |--------------------------------------------------------------------------

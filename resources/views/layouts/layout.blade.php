@@ -30,13 +30,13 @@
                     <a class="nav-link" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/exercises">Exercises</a>
+                    <a class="nav-link" href="/exercises">{{ __('exercises') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/users">Users</a>
+                    <a class="nav-link" href="/users">{{__('users')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/achievements">Achievements</a>
+                    <a class="nav-link" href="/settings">{{ __('settings') }}</a>
                 </li>
             </ul>
         </div>
@@ -64,14 +64,14 @@
                             <x-dropdown-link :href="route('logout')"
                                              onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('logout') }}
                             </x-dropdown-link>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="flex-fill mx-1">Log in</a>
+                        <a href="{{ route('login') }}" class="flex-fill mx-1">{{ __('login') }}</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="flex-fill">Register</a>
+                            <a href="{{ route('register') }}" class="flex-fill">{{ __('register') }}</a>
                         @endif
                     @endauth
                 </div>
